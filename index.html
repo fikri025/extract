@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar IP dan Port</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+
+        li:hover {
+            background-color: #e8e8e8;
+        }
+
+        .copy-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .copy-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Extract IP and PORT</h1>
+        <textarea id="data" placeholder="Paste data di sini"></textarea>
+        <button onclick="tampilkanDaftar()">Tampilkan Daftar</button>
+        <button onclick="salinHasil()">Salin Hasil</button>
+<br></br>
+        <ul id="daftar-ip-port"></ul>
+    </div>
+
+    <script>
+        function tampilkanDaftar() {
+            const data = document.getElementById('data').value.split('\n').filter(Boolean);
+
+            const daftarIpPort = document.getElementById('daftar-ip-port');
+            daftarIpPort.innerHTML = '';
+
+            data.forEach(item => {
+                const ipPort = item.trim().split(/\s+/);
+                const ip = ipPort[0];
+                const port = ipPort[1];
+
+                if (ip && port) {
+                    const li = document.createElement('li');
+                    li.textContent = `'socks5://${ip}:${port}',`;
+                    daftarIpPort.appendChild(li);
+                }
+            });
+        }
+
+        function salinHasil() {
+            const daftarIpPort = document.getElementById('daftar-ip-port').innerText;
+            navigator.clipboard.writeText(daftarIpPort);
+        }
+    </script>
+</body>
+
+</html>
